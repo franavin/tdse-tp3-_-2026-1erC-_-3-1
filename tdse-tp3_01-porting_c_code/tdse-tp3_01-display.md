@@ -54,34 +54,18 @@ A continuación, se detalla la función de cada módulo y el comportamiento de l
     1.  **Estado `ST_DSP_IDLE`:** La tarea permanece en reposo evaluando si llegó un nuevo evento. Si la bandera es verdadera (`true`) y el evento es `EV_DSP_UPDATE`, transiciona al estado de actualización (`ST_DSP_UPDATE`).
     2.  **Estado `ST_DSP_UPDATE`:** Aquí se realiza el volcado de memoria. Baja la bandera (`flag = false`). Luego, le indica al driver físico que mueva el cursor a la posición 0 de la primera fila (`displayCharPositionWrite(0, 0)`) y envía el contenido completo de la primera fila de la matriz `ddram` (`displayStringWrite`). Inmediatamente repite este proceso exacto para la segunda fila (coordenada 0, 1). 
     3.  Al finalizar el volcado de las dos filas, retorna de manera automática al estado `ST_DSP_IDLE` para quedar a la espera de una nueva actualización solicitada por el sistema.
-	
-	
-	[info]  
-[info] app_init is running - Tick [mS] = 0
-[info]  app is a Bare Metal - Event-Triggered Systems (ETS)
-[info]  app is a App - Porting C code - C codig
-[info]  app is a (Update by Time Code, period = 1mS)
-[info]  g_app_cnt = 0
-[info]  
-[info]   task_test_init is running - Tick [mS] = 0
-[info]    task_test is a Task Test (Test Code Integration)
-[info]    task_test is a Non-Blocking & Update By Time Code
-[info]    task_test is a (Update by Time Code, period = 1mS)
-[info]    tick = 1000
-[info]  
-[info]   task_display_init is running - Tick [mS] = 1
-[info]    task_display is a Task Display (Display Statechart)
-[info]    task_display is a Non-Blocking Code
-[info]    task_display is a (Update by Time Code, period = 1mS)
-[info]  
-[info]    state = 0   event = 0   b_event = false
+		
+# Registro de Inicialización del Sistema (Boot Log)
 
+Al ejecutar el programa en el microcontrolador, la terminal (Logger) arroja la siguiente secuencia de inicialización, confirmando el correcto arranque del planificador de tareas y los módulos integrados:
+
+```text
 [info]  
-[info] app_init is running - Tick [mS] = 0
-[info]  app is a Bare Metal - Event-Triggered Systems (ETS)
-[info]  app is a App - Porting C code - C codig
-[info]  app is a (Update by Time Code, period = 1mS)
-[info]  g_app_cnt = 0
+[info]  app_init is running - Tick [mS] = 0
+[info]   app is a Bare Metal - Event-Triggered Systems (ETS)
+[info]   app is a App - Porting C code - C codig
+[info]   app is a (Update by Time Code, period = 1mS)
+[info]   g_app_cnt = 0
 [info]  
 [info]   task_test_init is running - Tick [mS] = 0
 [info]    task_test is a Task Test (Test Code Integration)
